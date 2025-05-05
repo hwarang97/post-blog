@@ -1,7 +1,6 @@
 from datetime import date
-from importlib import reload
 
-from flask import Flask, redirect, render_template, request, url_for
+from flask import Flask, redirect, render_template, url_for
 from flask_bootstrap import Bootstrap5
 from flask_ckeditor import CKEditor, CKEditorField
 from flask_sqlalchemy import SQLAlchemy
@@ -9,7 +8,7 @@ from flask_wtf import FlaskForm
 from sqlalchemy import Integer, String, Text
 from sqlalchemy.orm import DeclarativeBase, Mapped, mapped_column
 from wtforms import StringField, SubmitField
-from wtforms.validators import URL, DataRequired
+from wtforms.validators import DataRequired
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = "8BYkEfBA6O6donzWlSihBXox7C0sKR6b"
@@ -108,7 +107,7 @@ def edit_post(post_id):
         return redirect(url_for("get_all_posts"))
     return render_template("make-post.html", form=form, is_edit=True, id=post_id)
 
-# TODO: delete_post() to remove a blog post from the database
+
 @app.route("/delete-post/<int:post_id>")
 def delete_post(post_id):
     post = db.get_or_404(BlogPost, post_id)
@@ -116,7 +115,7 @@ def delete_post(post_id):
     db.session.commit()
     return redirect(url_for("get_all_posts"))
 
-# Below is the code from previous lessons. No changes needed.
+
 @app.route("/about")
 def about():
     return render_template("about.html")
